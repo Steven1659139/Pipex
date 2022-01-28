@@ -1,13 +1,34 @@
-NAME = pipex.a
 
-LIBFT = Libft/libft.a
+NAME := pipex
 
-MAIN := main.c
+CC := gcc 
 
-OBJ_MAIN := $(MAIN:.c=.o)
+FLAG := -I -Wall -Wextra -Werror
 
-SRC := utils.c redirection.c pipe.c
+RM := rm -rfv
+
+SRC := $(wildcard *.c)
 
 OBJ := $(SRC:.c=.o)
 
-OBJ_WITH_MAIN := $(OBJ) $(OBJ_MAIN) $(LIBFT)
+all : ${NAME}
+
+$(NAME): ${OBJ}
+		@echo "Compilation..."
+	    @$(MAKE) -C ./Libft	
+	    ${CC} ${FLAG} ${OBJS} ./Libft/libft.a -o ${NAME}
+		
+
+clean:
+		@echo "Nettoyage..."
+		@$(MAKE) -C  Libft fclean
+		${RM} ${OBJ}
+		
+fclean: clean
+		@echo "Réinitialisation..."
+		${RM} ${NAME}
+
+re: fclean all
+	@echo "On scrap toute et on recommence..."
+
+

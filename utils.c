@@ -11,8 +11,9 @@ void    free_str_list(char **str_list)
 
     index = 0;
     while (str_list[index])
-        free(str_list[index++])
+        free(str_list[index++]);
 }
+
 /*
     Obtiens le chemin de la variable d'environnement dans env_list
 
@@ -21,14 +22,16 @@ void    free_str_list(char **str_list)
 
     return: le chemin de la variable d'environnement
 */
-char get_path(char **env)
+char **get_path_envp(char **envp)
 {
-    char **path;
+    char **path_envp;
 
-    while (!*env && !lb_isstr_start_equal(*env, "PATH="))
-        env++;
-    path = ft_split(*env + 5, ':');
-    return (path);
+    while (*envp && !ft_str_sameStart(*envp, "PATH="))
+        envp++;
+    if (!*envp)
+        return (NULL);
+    path_envp = ft_split(*envp + 5, ':');
+    return (path_envp);
 }
 /*
     Obtiens le chemin bin de la commande, elle est utilisé au où la commande n'est pas dans le répertoire actuel.
@@ -39,7 +42,7 @@ char get_path(char **env)
 
     return: BIN PATH
 */
-char *get_bin(char *command, char **env)
+char *get_bin(char *command, char **envp)
 
 {
     char    **path_list;
@@ -47,7 +50,7 @@ char *get_bin(char *command, char **env)
     char    *temp;
     int     index;
 
-    path_list = get_path(env);
+    path_list = get_path_envp(envp);
     temp = ft_strsufx("/", path_list[0]);
     full_path = ft_strjoin(temp, command);
     free(temp);
@@ -76,23 +79,23 @@ char *get_bin(char *command, char **env)
 
             return: renvoie 1 en cas de succès et 0 en cas d'échec.
 */
-int check_command(char **argv, char **env)
+int check_command(char **argv, char **envp)
 {
 char    **func_arg;
 char    *bin_path;
 int     index;
 char    *command;
 
-if (lb_isstr_start_equal(argv[1], "here_doc"))
+if (ft_str_sameStart(argv[1], "here_doc"))
     command = argv[3];
 else
     command = argv[2];
-func_arg = ft_split(command, " ");
-bin_path = get_bin(func_arg[0], env);
+func_arg = ft_split(command, ' ');
+bin_path = get_bin(func_arg[0], envp);
 if (!bin_path)
     return (0);
 index = 0;
-if (!lb_isstr_start_equal(bin_path, command))
+if (!ft_str_sameStart(bin_path, command))
     free(bin_path);
 if (*func_arg)
 {

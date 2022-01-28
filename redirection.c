@@ -1,6 +1,4 @@
 #include "pipex.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /*
     Redirige la sortie du processus vers un fichier.
@@ -12,7 +10,7 @@
 */
 int redirect_write(char *file)
 {
-    int fd_file:
+    int fd_file;
 
     fd_file = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if (fd_file == -1)
@@ -56,7 +54,7 @@ void command_exeggutor(char *command, char **env_list)
     char **args;
     char *bin_path;
 
-    args = ft_split(command, " ");
+    args = ft_split(command, ' ');
     bin_path = get_bin(args[0], env_list);
     execve(bin_path, args++, env_list);
 }

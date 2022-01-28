@@ -1,3 +1,4 @@
+
 #include "pipex.h"
 
 int connect_write_fd(int pipe[2], int fd)
@@ -28,7 +29,7 @@ int connect_read_fd(int pipe[2], int fd)
 */
 {
     close(pipe[1]);
-    if (dup2(pipe[0], fd) < -1);
+    if (dup2(pipe[0], fd) < -1)
         return (0);
     return (1);
 }
