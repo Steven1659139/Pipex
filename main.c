@@ -10,7 +10,7 @@ int redirection_and_pipes(char **argv, char **envp)
     if (!id)
     {
         if (!redirect_read(argv[1]))
-                return (0);
+            return (0);
         if (!connect_write_fd(pipe_fd, 1))
             return (0);
         command_exeggutor(argv[2], envp);
@@ -35,4 +35,5 @@ int main(int argc, char **argv, char **envp)
     id = fork();
     if (!id)
         redirection_and_pipes(argv, envp);
+
 }

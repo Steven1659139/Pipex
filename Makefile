@@ -3,11 +3,11 @@ NAME := pipex
 
 CC := gcc 
 
-FLAG := -I -Wall -Wextra -Werror
+FLAG :=  -Wall -Wextra -Werror
 
 RM := rm -rfv
 
-SRC := $(wildcard *.c)
+SRC := main.c pipe.c utils.c redirection.c
 
 OBJ := $(SRC:.c=.o)
 
@@ -16,7 +16,7 @@ all : ${NAME}
 $(NAME): ${OBJ}
 		@echo "Compilation..."
 	    @$(MAKE) -C ./Libft	
-	    ${CC} ${FLAG} ${OBJS} ./Libft/libft.a -o ${NAME}
+	    ${CC} ${OBJ} ${FLAG} ./Libft/libft.a -o ${NAME}
 		
 
 clean:

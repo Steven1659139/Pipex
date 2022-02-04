@@ -12,6 +12,7 @@ void    free_str_list(char **str_list)
     index = 0;
     while (str_list[index])
         free(str_list[index++]);
+    free(str_list);
 }
 
 /*
@@ -81,27 +82,27 @@ char *get_bin(char *command, char **envp)
 */
 int check_command(char **argv, char **envp)
 {
-char    **func_arg;
-char    *bin_path;
-int     index;
-char    *command;
-
-if (ft_str_sameStart(argv[1], "here_doc"))
-    command = argv[3];
-else
-    command = argv[2];
-func_arg = ft_split(command, ' ');
-bin_path = get_bin(func_arg[0], envp);
-if (!bin_path)
-    return (0);
-index = 0;
-if (!ft_str_sameStart(bin_path, command))
-    free(bin_path);
-if (*func_arg)
-{
-    while (func_arg[index])
-        free(func_arg[index++]);
-}
-free(func_arg);
-return (1);
+    char    **func_arg;
+    char    *bin_path;
+    int     index;
+    char    *command;
+    
+    if (ft_str_sameStart(argv[1], "here_doc"))
+        command = argv[3];
+    else
+        command = argv[2];
+    func_arg = ft_split(command, ' ');
+    bin_path = get_bin(func_arg[0], envp);
+    if (!bin_path)
+        return (0);
+    index = 0;
+    if (!ft_str_sameStart(bin_path, command))
+        free(bin_path);
+    if (*func_arg)
+    {
+        while (func_arg[index])
+            free(func_arg[index++]);
+    }
+    free(func_arg);
+    return (1);
 }

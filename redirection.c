@@ -49,13 +49,13 @@ int redirect_read(char *file)
 
     return: 1 en cas de succès et 0 en cas d'échec
 */
-void command_exeggutor(char *command, char **env_list)
+void command_exeggutor(char *command, char **envp)
 {
     char **args;
     char *bin_path;
 
     args = ft_split(command, ' ');
-    bin_path = get_bin(args[0], env_list);
-    execve(bin_path, args++, env_list);
+    bin_path = get_bin(args[0], envp);
+    execve(bin_path, args++, envp);
 }
 
