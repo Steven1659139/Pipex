@@ -1,34 +1,27 @@
-
 NAME := pipex
 
-CC := gcc 
-
-FLAG :=  -Wall -Wextra -Werror
+CC := gcc
+CFLAGS := -Wall -Werror -Wextra
 
 RM := rm -rfv
 
-SRC := main.c pipe.c utils.c redirection.c
+SRCS := pipex.c utils.c
+OBJS := $(SRCS:.c=.o)
 
-OBJ := $(SRC:.c=.o)
+all : $(NAME)
 
-all : ${NAME}
-
-$(NAME): ${OBJ}
-		@echo "Compilation..."
-	    @$(MAKE) -C ./Libft	
-	    ${CC} ${OBJ} ${FLAG} ./Libft/libft.a -o ${NAME}
-		
+$(NAME): $(OBJS)
+	@echo "Compilation de $(NAME)"
+	@$(MAKE) -C ./Libft
+	$(CC) $(CFLAGS) $(OBJS) ./Libft/libft.a -o $(NAME)
 
 clean:
-		@echo "Nettoyage..."
-		@$(MAKE) -C  Libft fclean
-		${RM} ${OBJ}
-		
+	@echo "Nettoyage..."
+	@$(MAKE) -C  Libft fclean
+	${RM} ${OBJS}
+
 fclean: clean
-		@echo "Réinitialisation..."
-		${RM} ${NAME}
+	@echo "Supression de l'executable"
+	${RM} ${NAME}
 
 re: fclean all
-	@echo "On scrap toute et on recommence..."
-
-

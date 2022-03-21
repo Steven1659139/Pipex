@@ -1,24 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slavoie <marvin@42quebec.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/21 00:36:33 by slavoie           #+#    #+#             */
+/*   Updated: 2022/03/21 00:38:19 by slavoie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include <stdlib.h>
-# include <fcntl.h>
+# include	"Libft/libft.h"
+# include	<fcntl.h>
+# include	<unistd.h>
 
-# include "Libft/libft.h"
-
-int connect_write_fd(int pipe[2], int fd);
-int connect_read_fd(int pipe[2], int fd);
-int close_pipe(int *pipe);  
-int     redirect_write(char *file);
-int     redirect_read(char *file);
-void    command_exeggutor(char *command, char **env_list);
-
-void    free_str_list(char **str_list);
-char    get_path(char **env);
-char    *get_bin(char *command, char **env);
-int     check_command(char **argv, char **env); 
+void	baby_process(char **argv, char **envp, int *fd);
+void	daddy_process(char **argv, char **envp, int *fd);
+char	*get_path(char *command, char **envp);
+void	command_exeggutor(char *argv, char **envp);
 
 #endif

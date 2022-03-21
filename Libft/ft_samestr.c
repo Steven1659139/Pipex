@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_samestr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slavoie <marvin@42quebec.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 00:11:49 by slavoie           #+#    #+#             */
-/*   Updated: 2022/03/21 00:11:54 by slavoie          ###   ########.fr       */
+/*   Created: 2022/03/21 00:28:54 by slavoie           #+#    #+#             */
+/*   Updated: 2022/03/21 00:29:49 by slavoie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-size_t	ft_strlen(const char *str)
+int	ft_samestr(char *str1, char *str2)
 {
-	size_t	index;
+	int	index;
 
 	index = 0;
-	while (str[index])
+	while ((str1[index] && str2[index]) && (str1[index] == str2[index]))
 		index++;
-	return (index);
+	if (!str2[index] && !str1[index])
+		return (1);
+	return (0);
 }
