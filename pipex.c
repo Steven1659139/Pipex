@@ -6,7 +6,7 @@
 /*   By: slavoie <marvin@42quebec.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 00:39:03 by slavoie           #+#    #+#             */
-/*   Updated: 2022/03/21 00:43:32 by slavoie          ###   ########.fr       */
+/*   Updated: 2022/03/21 16:57:57 by slavoie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	main(int argc, char **argv, char **envp)
 			ft_putstr_fd("Erreur lors de la création du fork", 2);
 		if (pid1 == 0)
 			baby_process(argv, envp, fd);
-		wait(NULL);
 		daddy_process(argv, envp, fd);
 	}
 	else

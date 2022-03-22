@@ -80,10 +80,8 @@ char	**ft_split(const char *str, char sep)
 	int		word;
 
 	word = count_word(str, sep);
-	if (!str)
-		return (NULL);
 	tab = (char **)malloc(sizeof(char *) * (word + 1));
-	if (!tab)
+	if (!tab || !str)
 		return (NULL);
 	i = 0;
 	while (i < word)
