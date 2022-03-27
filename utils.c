@@ -11,6 +11,12 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+void	ft_yo_its_wrong(void)
+{
+	ft_putstr_fd(RED"Erreur", 2);
+	exit(EXIT_FAILURE);
+}
+
 
 char	*get_path(char *command, char **envp)
 {
@@ -41,6 +47,7 @@ char	*get_path(char *command, char **envp)
 	return (0);
 }
 
+
 void	command_exeggutor(char *argv, char **envp)
 {
 	char	**command;
@@ -55,9 +62,11 @@ void	command_exeggutor(char *argv, char **envp)
 		while (command[++i])
 			free(command[i]);
 		free(command);
-		ft_putstr_fd("Erreur lors de la récupération du path,", 2);
-		ft_putstr_fd("la mémoire allouée à été libéré.", 2);
+		ft_yo_its_wrong();
+		//ft_putstr_fd("Erreur lors de la récupération du path,", 2);
+		//ft_putstr_fd("la mémoire allouée à été libéré.", 2);
 	}
 	if (execve(full_path, command, envp) == -1)
-		ft_putstr_fd("Erreur lors de l'exécution de la commande.", 2);
+		ft_yo_its_wrong();
+		//ft_putstr_fd("Erreur lors de l'exécution de la commande.", 2);
 }

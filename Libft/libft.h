@@ -23,6 +23,18 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+// Couleur
+
+# define RED "\e[0;31m"
+# define GREEN "\e[0;32m"
+# define YELLOW "\e[0;33m"
+# define BLUE "\e[0;34m"
+# define VIOLET "\e[0;35m"
+# define CYAN "\e[0;36m"
+
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
+
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
