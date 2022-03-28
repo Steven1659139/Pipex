@@ -18,7 +18,7 @@
 # include	<unistd.h>
 
 void	baby_process(char **argv, char **envp, int *fd);
-void	daddy_process(char **argv, char **envp, int *fd);
+void	baby_process2(char **argv, char **envp, int *fd);
 char	*get_path(char *command, char **envp);
 void	command_exeggutor(char *argv, char **envp);
 void	ft_yo_its_wrong(void);

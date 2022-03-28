@@ -26,8 +26,10 @@ char	*get_path(char *command, char **envp)
 	int		i;
 
 	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+	while (envp[i] != NULL && ft_strnstr(envp[i], "PATH=", 5) == 0)
 		i++;
+	if (envp[i] == NULL)
+		return (NULL);
 	path_list = ft_split(envp[i] + 5, ':');
 	i = 0;
 	while (path_list[i])
@@ -56,7 +58,10 @@ void	command_exeggutor(char *argv, char **envp)
 
 	i = -1;
 	command = ft_split(argv, ' ');
-	full_path = get_path(command[0], envp);
+	if (access(command[0], F_OK | X_OK) == 0)
+		full_path = command[0];
+	else	
+		full_path = get_path(command[0], envp);
 	if (!full_path)
 	{
 		while (command[++i])
