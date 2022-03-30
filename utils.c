@@ -6,17 +6,27 @@
 /*   By: slavoie <marvin@42quebec.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 00:30:19 by slavoie           #+#    #+#             */
-/*   Updated: 2022/03/21 00:35:48 by slavoie          ###   ########.fr       */
+/*   Updated: 2022/03/29 12:09:31 by slavoie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
 void	ft_yo_its_wrong(void)
 {
-	ft_putstr_fd(RED"Erreur", 2);
+	ft_putstr_fd(RED"Erreur\n", 2);
 	exit(EXIT_FAILURE);
 }
 
+void	free_path(char **path_list)
+{
+	int	i;
+
+	i = -1;
+	while (path_list[++i])
+		free(path_list[i]);
+	free(path_list);
+}
 
 char	*get_path(char *command, char **envp)
 {
@@ -37,18 +47,14 @@ char	*get_path(char *command, char **envp)
 		temp = ft_strjoin(path_list[i], "/");
 		full_path = ft_strjoin(temp, command);
 		free (temp);
-		if (access(full_path, F_OK) == 0)
+		if (access(full_path, F_OK | X_OK) == 0)
 			return (full_path);
 		free(full_path);
 		i++;
 	}
-	i = -1;
-	while (path_list[++i])
-		free(path_list[i]);
-	free(path_list);
+	free_path(path_list);
 	return (0);
 }
-
 
 void	command_exeggutor(char *argv, char **envp)
 {
@@ -60,7 +66,7 @@ void	command_exeggutor(char *argv, char **envp)
 	command = ft_split(argv, ' ');
 	if (access(command[0], F_OK | X_OK) == 0)
 		full_path = command[0];
-	else	
+	else
 		full_path = get_path(command[0], envp);
 	if (!full_path)
 	{
@@ -68,10 +74,7 @@ void	command_exeggutor(char *argv, char **envp)
 			free(command[i]);
 		free(command);
 		ft_yo_its_wrong();
-		//ft_putstr_fd("Erreur lors de la récupération du path,", 2);
-		//ft_putstr_fd("la mémoire allouée à été libéré.", 2);
 	}
 	if (execve(full_path, command, envp) == -1)
 		ft_yo_its_wrong();
-		//ft_putstr_fd("Erreur lors de l'exécution de la commande.", 2);
 }
